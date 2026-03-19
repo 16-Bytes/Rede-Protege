@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rede Protege - Painel Pedagógico</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/style.css') }}"
+        />
+    </head>
+    <body class="bg-gray-100 overflow-hidden">
+        <div id="message-box"></div>
+
+        <div
+            id="admin-login-screen"
+            class="fixed inset-0 bg-gray-200 flex items-center justify-center z-50"
+        >
+            <div
+                class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md text-center"
+            >
+                <h1 class="text-3xl font-extrabold text-blue-600 mb-2">
+                    REDE PROTEGE
+                </h1>
+                <p class="text-gray-500 mb-8 font-semibold">
+                    Acesso Restrito - Pedagogia
+                </p>
+                <div class="space-y-4">
+                    <input
+                        type="text"
+                        id="admin-user"
+                        class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 outline-none"
+                        placeholder="Usuário"
+                    />
+                    <input
+                        type="password"
+                        id="admin-pass"
+                        class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 outline-none"
+                        placeholder="Senha"
+                    />
+                    <button
+                        onclick="fazerLoginPedagogia()"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg"
+                    >
+                        Entrar no Sistema
+                    </button>
+                </div>
+                <a
+                    href="/"
+                    class="block mt-6 text-sm text-blue-500 hover:underline"
+                    >Voltar ao portal principal</a
+                >
+            </div>
+        </div>
+
+        <div id="admin-dashboard-screen" class="hidden h-screen flex w-full">
+            <aside
+                class="w-64 bg-[#2b88eb] text-white flex flex-col shadow-lg z-20"
+            >
+                <div
+                    class="p-6 flex items-center gap-3 border-b border-blue-400"
+                >
+                    <i class="fa-solid fa-shield-halved text-2xl"></i
+                    ><span class="text-xl font-bold tracking-wider"
+                        >PROTEGE</span
+                    >
+                </div>
+                <nav class="flex-1 px-4 py-6 space-y-2">
+                    <a
+                        href="#"
+                        class="flex items-center gap-3 px-3 py-2 bg-blue-600 rounded-lg font-semibold"
+                        ><i class="fa-solid fa-house w-5"></i> Dashboard</a
+                    >
+                </nav>
+                <div class="p-4 border-t border-blue-400">
+                    <button
+                        onclick="sairPedagogia()"
+                        class="flex items-center gap-3 px-3 py-2 w-full hover:bg-blue-600 rounded-lg"
+                    >
+                        <i class="fa-solid fa-right-from-bracket w-5"></i> Sair
+                        do Sistema
+                    </button>
+                </div>
+            </aside>
+
+            <main
+                class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7f6]"
+            >
+                <header
+                    class="h-16 bg-white shadow-sm flex items-center justify-between px-8 border-b"
+                >
+                    <h2 class="font-bold text-gray-700">Painel de Controle</h2>
+                </header>
+
+                <div class="flex-1 overflow-y-auto p-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                        Visão Geral
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4"
+                        >
+                            <div
+                                class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 text-xl"
+                            >
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 font-semibold">
+                                    Total Registros
+                                </p>
+                                <p
+                                    id="stat-total"
+                                    class="text-2xl font-bold text-gray-800"
+                                >
+                                    0
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4"
+                        >
+                            <div
+                                class="w-12 h-12 rounded-lg bg-yellow-100 flex items-center justify-center text-yellow-600 text-xl"
+                            >
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 font-semibold">
+                                    Aguardando Análise
+                                </p>
+                                <p
+                                    id="stat-nova"
+                                    class="text-2xl font-bold text-gray-800"
+                                >
+                                    0
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4"
+                        >
+                            <div
+                                class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600 text-xl"
+                            >
+                                <i class="fa-solid fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 font-semibold">
+                                    Concluídas
+                                </p>
+                                <p
+                                    id="stat-concluida"
+                                    class="text-2xl font-bold text-gray-800"
+                                >
+                                    0
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4"
+                        >
+                            <div
+                                class="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center text-red-600 text-xl"
+                            >
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 font-semibold">
+                                    Fraudes Suspeitas
+                                </p>
+                                <p
+                                    id="stat-fraude"
+                                    class="text-2xl font-bold text-gray-800"
+                                >
+                                    0
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
+                    >
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-500 text-sm">
+                                    <th class="py-3 px-6 font-semibold">
+                                        Protocolo
+                                    </th>
+                                    <th class="py-3 px-6 font-semibold">
+                                        Data
+                                    </th>
+                                    <th class="py-3 px-6 font-semibold">
+                                        Tipo
+                                    </th>
+                                    <th class="py-3 px-6 font-semibold">
+                                        Status
+                                    </th>
+                                    <th class="py-3 px-6 font-semibold">
+                                        Ação
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody
+                                id="tabela-admin-corpo"
+                                class="text-sm divide-y divide-gray-100"
+                            ></tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div
+            id="modal-denuncia"
+            class="hidden fixed inset-0 bg-black/60 z-[100] flex justify-center items-center p-4"
+        >
+            <div
+                class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh]"
+            >
+                <div
+                    class="p-6 border-b flex justify-between items-center bg-gray-50 rounded-t-2xl"
+                >
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">
+                            Protocolo
+                            <span
+                                id="modal-protocolo"
+                                class="text-blue-600"
+                            ></span>
+                        </h3>
+                        <p id="modal-data" class="text-sm text-gray-500"></p>
+                    </div>
+                    <button
+                        onclick="fecharModal()"
+                        class="text-gray-400 hover:text-red-500 text-2xl font-bold"
+                    >
+                        &times;
+                    </button>
+                </div>
+
+                <div class="p-6 overflow-y-auto flex-1 space-y-6">
+                    <div
+                        class="grid grid-cols-2 gap-4 bg-blue-50 p-4 rounded-xl"
+                    >
+                        <div>
+                            <p
+                                class="text-xs text-blue-500 font-bold uppercase"
+                            >
+                                Tipo de Agressão
+                            </p>
+                            <p
+                                id="modal-tipo"
+                                class="font-semibold text-gray-800"
+                            ></p>
+                        </div>
+                        <div>
+                            <p
+                                class="text-xs text-blue-500 font-bold uppercase"
+                            >
+                                Local do Ocorrido
+                            </p>
+                            <p
+                                id="modal-local"
+                                class="font-semibold text-gray-800"
+                            ></p>
+                        </div>
+                        <div class="col-span-2">
+                            <p
+                                class="text-xs text-blue-500 font-bold uppercase"
+                            >
+                                Agressor(es) Apontados
+                            </p>
+                            <p
+                                id="modal-agressor"
+                                class="font-semibold text-gray-800"
+                            ></p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p
+                            class="text-xs text-gray-500 font-bold uppercase mb-2"
+                        >
+                            Relato da Vítima
+                        </p>
+                        <div
+                            id="modal-descricao"
+                            class="bg-gray-50 p-4 rounded-lg border border-gray-200 text-gray-700 whitespace-pre-wrap"
+                        ></div>
+                    </div>
+
+                    <div>
+                        <p
+                            class="text-xs text-gray-500 font-bold uppercase mb-2"
+                        >
+                            Evidências Anexadas
+                        </p>
+                        <div
+                            id="modal-evidencias"
+                            class="flex gap-2 flex-wrap"
+                        ></div>
+                    </div>
+                </div>
+
+                <div
+                    class="p-6 border-t bg-gray-50 rounded-b-2xl flex justify-between items-center"
+                >
+                    <div class="flex items-center gap-3">
+                        <label class="font-bold text-sm text-gray-600"
+                            >Mudar Status:</label
+                        >
+                        <select
+                            id="modal-status"
+                            class="border-2 border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500"
+                        >
+                            <option value="Nova">Nova (Aguardando)</option>
+                            <option value="Em Análise">Em Análise</option>
+                            <option value="Concluída">Concluída</option>
+                            <option value="Suspeita de Fraude">
+                                Suspeita de Fraude
+                            </option>
+                        </select>
+                    </div>
+                    <div class="space-x-2">
+                        <button
+                            onclick="fecharModal()"
+                            class="px-4 py-2 text-gray-500 font-bold hover:bg-gray-200 rounded-lg"
+                        >
+                            Fechar
+                        </button>
+                        <button
+                            onclick="salvarStatus()"
+                            class="px-4 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700"
+                        >
+                            Salvar Alteração
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static', filename='js/script.js') }}?v=4"></script>
+    </body>
+</html>

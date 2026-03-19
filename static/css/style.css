@@ -1,0 +1,240 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+body {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#message-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    display: none;
+    z-index: 9999;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 10px;
+}
+
+/* =========================================
+   ÁREA DO ALUNO
+   ========================================= */
+.app-container {
+    width: 100%;
+    background: white;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 600px) {
+    .app-container {
+        height: 100vh;
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .arched-text {
+        font-size: 1.8rem;
+    }
+}
+
+/* Adaptivo */
+@media screen and (min-width: 601px) {
+    .app-container {
+        max-width: 400px;
+        height: 85vh; /* Se adapta ao tamanho do monitor */
+        max-height: 800px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        /* Garante que fique centralizado */
+        margin: auto;
+    }
+}
+
+/* Elementos Visuais do Aluno */
+.bg-portal {
+    background:
+        linear-gradient(rgba(173, 216, 230, 0.8), rgba(173, 216, 230, 0.8)),
+        url("https://images.unsplash.com/photo-1523240715630-66630f7936a2?auto=format&fit=crop&w=800&q=80");
+    background-size: cover;
+    background-position: center;
+}
+
+.arched-text {
+    font-weight: 800;
+    font-size: 2.2rem;
+    color: #0000cd;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.rounded-input {
+    border: 2px solid #8a2be2;
+    padding: 12px 20px;
+    text-align: center;
+    border-radius: 50px;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.rounded-input:focus {
+    border-color: #0000cd;
+}
+
+.btn-confirm {
+    color: white;
+    border-radius: 50px;
+    padding: 14px 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.btn-confirm:active {
+    transform: scale(0.98);
+}
+
+.header-denuncia {
+    background-color: #0000cd;
+    color: white;
+    padding: 8px 24px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    width: fit-content;
+    margin-left: -24px; /* Cola na borda esquerda do container */
+    border-radius: 0 10px 10px 0;
+}
+
+/* Opções de Denúncia */
+.option-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    border: 2px solid #e2e8f0;
+    border-radius: 15px;
+    color: #4a5568;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option-item:hover {
+    border-color: #0000cd;
+}
+.option-item.selected {
+    border-color: #0000cd;
+    background-color: #e0e7ff;
+    color: #0000cd;
+}
+
+.radio-circle {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #cbd5e0;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.option-item.selected .radio-circle {
+    border-color: #0000cd;
+    background-color: #0000cd;
+    box-shadow: inset 0 0 0 4px #e0e7ff;
+}
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+body {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+#message-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    display: none;
+    z-index: 9999;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 10px;
+}
+
+/* =========================================
+   INPUTS
+   ========================================= */
+.radio-circle {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #cbd5e0;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.option-item {
+    transition: all 0.2s ease;
+}
+
+.option-item.selected {
+    border-color: #2563eb;
+    background-color: #eff6ff;
+}
+
+.option-item.selected .radio-circle {
+    border-color: #2563eb;
+    background-color: #2563eb;
+    box-shadow: inset 0 0 0 4px #eff6ff;
+}
+
+/* Esconde as páginas inativas suavemente */
+.page {
+    display: none !important;
+    flex-direction: column;
+}
+.page.active {
+    display: flex !important;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

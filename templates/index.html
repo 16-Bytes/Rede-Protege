@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rede Protege - Início</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/style.css') }}"
+        />
+    </head>
+    <body class="min-h-screen flex flex-col md:flex-row">
+        <div
+            class="w-full md:w-1/2 bg-blue-700 min-h-[30vh] md:min-h-screen flex flex-col justify-center px-12 py-10 relative overflow-hidden text-white"
+        >
+            <div
+                class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1523240715630-66630f7936a2?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center"
+            ></div>
+
+            <div class="relative z-10">
+                <h1
+                    class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight"
+                >
+                    REDE<br />PROTEGE.
+                </h1>
+                <p
+                    class="text-blue-100 text-lg md:text-xl font-medium max-w-md"
+                >
+                    Um ambiente seguro e anônimo para combater o bullying e
+                    proteger nossos estudantes.
+                </p>
+            </div>
+        </div>
+
+        <div
+            class="w-full md:w-1/2 flex flex-col justify-center items-center px-8 py-12 bg-white min-h-[70vh] md:min-h-screen"
+        >
+            <div class="w-full max-w-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                    Bem-vindo(a)
+                </h2>
+                <p class="text-gray-500 mb-10 text-sm">
+                    Selecione o seu perfil de acesso abaixo para continuar.
+                </p>
+
+                <div class="space-y-4">
+                    <button
+                        onclick="redirecionar('aluno')"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl transition-colors shadow-lg shadow-blue-200 flex justify-between items-center group"
+                    >
+                        <span>Sou Aluno (Denunciar)</span>
+                        <span
+                            class="transform group-hover:translate-x-1 transition-transform"
+                            >→</span
+                        >
+                    </button>
+
+                    <button
+                        onclick="redirecionar('admin')"
+                        class="w-full bg-white border-2 border-purple-600 text-purple-700 hover:bg-purple-50 font-bold py-4 px-6 rounded-xl transition-colors flex justify-between items-center group"
+                    >
+                        <span>Equipe Pedagógica</span>
+                        <span
+                            class="transform group-hover:translate-x-1 transition-transform"
+                            >→</span
+                        >
+                    </button>
+                </div>
+
+                <p class="mt-12 text-center text-xs text-gray-400">
+                    Protegido pela Lei nº 13.709/2018 (LGPD)<br />Garantia total
+                    de anonimato.
+                </p>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    </body>
+</html>

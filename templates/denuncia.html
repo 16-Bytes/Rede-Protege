@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rede Protege - Denúncia</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/style.css') }}"
+        />
+    </head>
+    <body class="min-h-screen bg-gray-50 flex flex-col">
+        <div id="message-box"></div>
+
+        <header
+            class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center sticky top-0 z-50"
+        >
+            <div class="font-extrabold text-xl text-blue-700">REDE PROTEGE</div>
+            <button
+                onclick="window.location.href = '/'"
+                class="text-sm font-semibold text-gray-500 hover:text-gray-800"
+            >
+                Cancelar e Sair
+            </button>
+        </header>
+
+        <main class="flex-grow flex items-center justify-center p-4 sm:p-8">
+            <div
+                class="bg-white w-full max-w-2xl rounded-2xl shadow-xl border border-gray-100 overflow-hidden relative min-h-[500px]"
+            >
+                <div
+                    id="page-login"
+                    class="page active flex-col p-8 sm:p-12 h-full"
+                >
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">
+                        Identificação
+                    </h2>
+                    <p class="text-gray-500 mb-10 text-sm">
+                        Insira seu ID para validarmos o prazo de denúncia. Sua
+                        identidade não será enviada à coordenação.
+                    </p>
+
+                    <div class="mt-auto mb-auto w-full">
+                        <label class="block font-semibold text-gray-700 mb-2"
+                            >ID de Matrícula</label
+                        >
+                        <input
+                            type="text"
+                            id="login-id"
+                            class="w-full border-2 border-gray-200 focus:border-blue-500 rounded-xl px-4 py-4 outline-none transition-colors text-lg mb-6"
+                            placeholder="Ex: 123456"
+                        />
+                        <button
+                            onclick="handleLoginAluno()"
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-colors shadow-lg"
+                        >
+                            Acessar Sistema
+                        </button>
+                    </div>
+                </div>
+
+                <div id="page-2" class="page flex-col p-8 sm:p-12 h-full">
+                    <div class="flex items-center gap-3 mb-8">
+                        <button
+                            onclick="goToPageAluno('login')"
+                            class="text-gray-400 hover:text-blue-600"
+                        >
+                            <svg
+                                class="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                                ></path>
+                            </svg>
+                        </button>
+                        <h2 class="text-2xl font-bold text-gray-800">
+                            Tipo de Agressão
+                        </h2>
+                    </div>
+
+                    <div
+                        id="options-container"
+                        class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8"
+                    >
+                        <div
+                            class="option-item flex justify-between p-4 border-2 rounded-xl cursor-pointer"
+                            onclick="selectType(this, 'Verbal')"
+                        >
+                            <span class="font-semibold text-gray-700"
+                                >Verbal</span
+                            >
+                            <div class="radio-circle"></div>
+                        </div>
+                        <div
+                            class="option-item flex justify-between p-4 border-2 rounded-xl cursor-pointer"
+                            onclick="selectType(this, 'Física')"
+                        >
+                            <span class="font-semibold text-gray-700"
+                                >Física</span
+                            >
+                            <div class="radio-circle"></div>
+                        </div>
+                        <div
+                            class="option-item flex justify-between p-4 border-2 rounded-xl cursor-pointer"
+                            onclick="selectType(this, 'Psicológica')"
+                        >
+                            <span class="font-semibold text-gray-700"
+                                >Psicológica</span
+                            >
+                            <div class="radio-circle"></div>
+                        </div>
+                        <div
+                            class="option-item flex justify-between p-4 border-2 rounded-xl cursor-pointer"
+                            onclick="selectType(this, 'Cyberbullying')"
+                        >
+                            <span class="font-semibold text-gray-700"
+                                >Cyberbullying</span
+                            >
+                            <div class="radio-circle"></div>
+                        </div>
+                        <div
+                            class="option-item flex justify-between p-4 border-2 rounded-xl cursor-pointer"
+                            onclick="selectType(this, 'Material')"
+                        >
+                            <span class="font-semibold text-gray-700"
+                                >Material</span
+                            >
+                            <div class="radio-circle"></div>
+                        </div>
+                        <div
+                            class="option-item flex justify-between p-4 border-2 rounded-xl cursor-pointer"
+                            onclick="selectType(this, 'Sexual')"
+                        >
+                            <span class="font-semibold text-gray-700"
+                                >Sexual</span
+                            >
+                            <div class="radio-circle"></div>
+                        </div>
+                        <div
+                            class="option-item flex justify-between p-4 border-2 rounded-xl cursor-pointer sm:col-span-2"
+                            onclick="selectType(this, 'Preconceituoso')"
+                        >
+                            <span class="font-semibold text-gray-700"
+                                >Preconceituoso</span
+                            >
+                            <div class="radio-circle"></div>
+                        </div>
+                    </div>
+
+                    <button
+                        onclick="goToPageAluno('3')"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-colors mt-auto"
+                    >
+                        Avançar Detalhes
+                    </button>
+                </div>
+
+                <div id="page-3" class="page flex-col p-8 sm:p-12 h-full">
+                    <div class="flex items-center gap-3 mb-6">
+                        <button
+                            onclick="goToPageAluno('2')"
+                            class="text-gray-400 hover:text-blue-600"
+                        >
+                            <svg
+                                class="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                                ></path>
+                            </svg>
+                        </button>
+                        <h2 class="text-2xl font-bold text-gray-800">
+                            Detalhes do Ocorrido
+                        </h2>
+                    </div>
+
+                    <div class="space-y-4 mb-8">
+                        <div>
+                            <label
+                                class="block font-semibold text-gray-700 mb-1 text-sm"
+                                >Local do ocorrido:</label
+                            >
+                            <input
+                                type="text"
+                                id="local"
+                                class="w-full border-2 border-gray-200 focus:border-blue-500 rounded-xl px-4 py-3 outline-none transition-colors"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="block font-semibold text-gray-700 mb-1 text-sm"
+                                >Como ocorreu?</label
+                            >
+                            <textarea
+                                id="descricao"
+                                class="w-full border-2 border-gray-200 focus:border-blue-500 rounded-xl px-4 py-3 h-24 outline-none transition-colors resize-none"
+                            ></textarea>
+                        </div>
+                        <div>
+                            <label
+                                class="block font-semibold text-gray-700 mb-1 text-sm"
+                                >Agressor(es) (Opcional):</label
+                            >
+                            <input
+                                type="text"
+                                id="agressor"
+                                class="w-full border-2 border-gray-200 focus:border-blue-500 rounded-xl px-4 py-3 outline-none transition-colors"
+                            />
+                        </div>
+
+                        <div
+                            class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-blue-500 transition-colors bg-gray-50"
+                        >
+                            <svg
+                                class="mx-auto h-8 w-8 text-gray-400 mb-2"
+                                stroke="currentColor"
+                                fill="none"
+                                viewBox="0 0 48 48"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                            <p class="text-sm text-gray-600">
+                                Anexe fotos, vídeos ou áudios (Opcional)
+                            </p>
+                            <input
+                                type="file"
+                                id="arquivo-evidencia"
+                                multiple
+                                class="mt-3 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mx-auto"
+                            />
+                        </div>
+                    </div>
+
+                    <button
+                        onclick="finishDenuncia()"
+                        id="btn-finalizar"
+                        class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl transition-colors mt-auto"
+                    >
+                        Enviar Denúncia de Forma Segura
+                    </button>
+                </div>
+
+                <div
+                    id="page-4"
+                    class="page flex-col justify-center items-center text-center p-8 sm:p-12 h-full"
+                >
+                    <div
+                        class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6"
+                    >
+                        <svg
+                            class="w-10 h-10 text-green-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                                d="M5 13l4 4L19 7"
+                            ></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-3xl font-extrabold text-gray-800 mb-2">
+                        Tudo certo!
+                    </h1>
+                    <p class="text-gray-500 mb-8">
+                        Seu relato foi enviado com sucesso e segurança.
+                    </p>
+
+                    <div
+                        class="bg-gray-100 p-6 rounded-2xl w-full mb-8 border border-gray-200"
+                    >
+                        <p
+                            class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2"
+                        >
+                            Protocolo de Acompanhamento
+                        </p>
+                        <p
+                            id="protocol-number"
+                            class="text-3xl font-black text-blue-700 tracking-wider"
+                        >
+                            GERANDO...
+                        </p>
+                    </div>
+
+                    <button
+                        onclick="window.location.href = '/'"
+                        class="text-blue-600 font-bold hover:underline"
+                    >
+                        Voltar à Página Inicial
+                    </button>
+                </div>
+            </div>
+        </main>
+        <script src="{{ url_for('static', filename='js/script.js') }}?v=3"></script>
+    </body>
+</html>
